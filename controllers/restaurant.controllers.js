@@ -2,7 +2,7 @@ const resModel = require("../models/restaurants.model");
 
 exports.getRestaurants = async (req, res) => {
   try {
-    const result = await resModel.find().limit(5);
+    const result = await resModel.find().limit(10000);
 
     res.json({ status: true, result });
   } catch (err) {

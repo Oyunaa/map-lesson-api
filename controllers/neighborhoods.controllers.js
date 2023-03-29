@@ -3,7 +3,7 @@ const resModel = require("../models/restaurants.model");
 
 exports.getNeighborhoods = async (req, res) => {
   try {
-    const result = await neighborModel.find().limit(5);
+    const result = await neighborModel.find();
 
     res.json({ status: true, result });
   } catch (err) {
@@ -22,11 +22,29 @@ exports.getNeighborhoodsOne = async (req, res) => {
   }
 };
 
-exports.getNeighborhoodsByRes = async (req, res) => {
-  const { _id } = req.params;
+exports.getAllRestaurantsInNeighborhood = async (req, res) => {
+  const { lat, long } = req.body;
   try {
-    const result = await neighborModel.findOne({ _id });
-    res.json({ status: true, result });
+    const currentNeighborHood = await neighborModel.findOne({
+      geometry: {
+        $geoIntersects: {
+          $geometry: {
+            type: "Point",
+            coordinates: [long, lat],
+          },
+        },
+      },
+    });
+    const restaurants = await resModel.find({
+      location: {
+        $geoWithin: {
+          $geometry: currentNeighborHood.geometry,
+        },
+      },
+    });
+    const result = { currentNeighborHood, restaurants };
+
+    res.json({ status: true, result, count: result.length });
   } catch (err) {
     res.json({ status: false, message: err });
   }
@@ -93,7 +111,7 @@ exports.findRestaurantsInDistance = async (req, res) => {
             type: "Point",
             coordinates: [long, lat],
           },
-          $maxDistance: 500,
+          $maxDistance: 500, //meter
         },
       },
     });

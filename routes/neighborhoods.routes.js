@@ -3,8 +3,13 @@ const neighborhoods = require("../controllers/neighborhoods.controllers");
 
 const route = Router();
 
-route.get("/neighborhoods", neighborhoods.getNeighborhoods);
+route.post("/neighborhoods", neighborhoods.getNeighborhoods);
 route.get("/neighborhoods/:_id", neighborhoods.getNeighborhoodsOne);
+
+route.post(
+  "/allrestaurantsinneighborhood",
+  neighborhoods.getAllRestaurantsInNeighborhood
+);
 
 route.post("/currentNeighborHood/", neighborhoods.findCurrentNeighborHood);
 route.post("/findAllRes/", neighborhoods.findAllRestaurantsInNeighborhood);

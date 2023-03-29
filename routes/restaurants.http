@@ -3,7 +3,8 @@ GET http://localhost:9000/api
 
 
 ### 
-GET http://localhost:9000/api/restaurants/
+POST http://localhost:9000/api/restaurants/
+Content-Type: application/json
 
 ### 
 GET http://localhost:9000/api/restaurants/55cba2476c522cafdb053add
@@ -14,6 +15,17 @@ GET http://localhost:9000/api/neighborhoods
 
 ### 
 GET http://localhost:9000/api/neighborhoods/55cb9c666c522cafdb053a1a
+
+
+### 
+POST http://localhost:9000/api/allrestaurantsinneighborhood
+Content-Type: application/json
+
+{
+    "long": -73.93414657,
+    "lat": 40.82302903
+}
+
 
 
 ###

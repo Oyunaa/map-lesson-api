@@ -3,8 +3,8 @@ const restaurant = require("../controllers/restaurant.controllers");
 
 const route = Router();
 
-route.get("/restaurants", restaurant.getRestaurants);
+route.post("/restaurants", restaurant.getRestaurants);
 route.get("/restaurants/:_id", restaurant.getRestaurantOne);
-route.get("/restaurantsbyneighbor/", restaurant.getRestaurantByNeighborHood);
+route.get("/restaurantsbyneighbor/", restaurant.getRestaurantByNeighborHood); // jishee
 
 module.exports = route;
